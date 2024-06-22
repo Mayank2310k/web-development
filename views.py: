@@ -1,0 +1,18 @@
+from django.shortcuts import render
+from django.http import JsonResponse
+import pandas as pd
+
+def upload_csv(request):
+    if request.method == 'POST':
+        group_file = request.FILES['group_file']
+        hostel_file = request.FILES['hostel_file']
+        
+        group_df = pd.read_csv(group_file)
+        hostel_df = pd.read_csv(hostel_file)
+        
+        # Validate data
+        # Perform room allocation
+        # Return results as JSON or CSV
+        
+        return JsonResponse({'status': 'success', 'data': 'allocation_results'})
+    return render(request, 'upload.html')
