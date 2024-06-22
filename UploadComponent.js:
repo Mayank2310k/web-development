@@ -1,0 +1,42 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+
+function UploadComponent() {
+  const [groupFile, setGroupFile] = useState(null);
+  const [hostelFile, setHostelFile] = useState(null);
+  const [allocationResults, setAllocationResults] = useState(null);
+
+  const handleFileChange = (e) => {
+    if (e.target.name === 'groupFile') {
+      setGroupFile(e.target.files[0]);
+    } else {
+      setHostelFile(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = () => {
+    const formData = new FormData();
+    formData.append('group_file', groupFile);
+    formData.append('hostel_file', hostelFile);
+
+    axios.post('/api/upload_csv/', formData)
+      .then(response => {
+        setAllocationResults(response.data);
+      })
+      .catch(error => {
+        console.error('There was an error uploading the files!', error);
+      });
+  };
+
+  return (
+    <div>
+      <h1>Upload Group and Hostel Information</h1>
+      <input type="file" name="groupFile" onChange={handleFileChange} />
+      <input type="file" name="hostelFile" onChange={handleFileChange} />
+      <button onClick={handleUpload}>Upload and Allocate</button>
+      {allocationResults && <pre>{JSON.stringify(allocationResults, null, 2)}</pre>}
+    </div>
+  );
+}
+
+export default UploadComponent;
