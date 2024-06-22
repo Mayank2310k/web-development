@@ -1,0 +1,19 @@
+def allocate_rooms(group_df, hostel_df):
+    # Example allocation logic
+    results = []
+    
+    boys_rooms = hostel_df[hostel_df['Gender'] == 'Boys']
+    girls_rooms = hostel_df[hostel_df['Gender'] == 'Girls']
+    
+    for index, group in group_df.iterrows():
+        if group['Gender'] == 'Boys':
+            # Allocate boys rooms
+            pass
+        elif group['Gender'] == 'Girls':
+            # Allocate girls rooms
+            pass
+        else:
+            # Mixed gender allocation
+            pass
+            
+    return results
